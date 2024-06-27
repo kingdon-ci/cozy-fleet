@@ -1,0 +1,15 @@
+kind: FluxInstance
+metadata:
+  name: flux
+  namespace: cozy-fluxcd
+  annotations:
+    kustomize.toolkit.fluxcd.io/ssa: merge
+spec:
+  cluster: {}
+  distribution: {}
+  sync:
+    kind: GitRepository
+    url: "ssh://git@github.com/kingdon-ci/cozy-fleet.git"
+    ref: "refs/heads/main"
+    path: "clusters/harvey"
+    pullSecret: "flux-system"
