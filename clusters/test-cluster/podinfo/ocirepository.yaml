@@ -8,6 +8,6 @@ spec:
   layerSelector:
     mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
     operation: copy
-  url: oci://docker.io/bitnamicharts/metrics-server
+  url: oci://ghcr.io/stefanprodan/charts/podinfo
   ref:
     semver: ">=6.7.0"
