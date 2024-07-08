@@ -27,4 +27,3 @@ spec:
         name: self-signed
     tls:
       enabled: false
-      secretName: podinfo-tls
