@@ -11,5 +11,5 @@ spec:
   driftDetection:
     mode: enabled
   values:
-    apiService:
-      create: true
+    ingress:
+      enabled: true
