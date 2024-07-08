@@ -26,5 +26,5 @@ spec:
         kind: Issuer
         name: self-signed
     tls:
-      enabled: true
+      enabled: false
       secretName: podinfo-tls
