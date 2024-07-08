@@ -14,3 +14,17 @@ spec:
     ingress:
       enabled: true
       className: nginx
+      tls:
+       - secretName: podinfo-tls
+         hosts:
+           - podinfo.local
+    certificate:
+      create: true
+      dnsNames:
+        - podinfo.local
+      issuerRef:
+        kind: Issuer
+        name: self-signed
+    tls:
+      enabled: true
+      secretName: podinfo-tls
