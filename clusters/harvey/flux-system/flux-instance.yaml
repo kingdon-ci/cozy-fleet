@@ -1,7 +1,7 @@
 apiVersion: fluxcd.controlplane.io/v1
 kind: FluxInstance
 metadata:
-  name: flux
+  name: cozy-fluxcd
   namespace: cozy-fluxcd
   annotations:
     kustomize.toolkit.fluxcd.io/ssa: merge
