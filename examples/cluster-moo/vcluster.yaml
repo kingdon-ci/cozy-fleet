@@ -1,0 +1,40 @@
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: VCluster
+metadata:
+  labels:
+    cluster.x-k8s.io/cluster-name: moo
+  name: moo
+  namespace: vcluster-moo-cluster
+spec:
+  controlPlaneEndpoint:
+    host: moo.vcluster-moo-cluster.svc
+    port: 443
+  helmRelease:
+    chart:
+      name: vcluster
+      repo: https://charts.loft.sh
+      version: 0.22.1
+    values: |
+      controlPlane:
+        ingress:
+          enabled: true
+          host: moo-cluster.turkey.local
+          spec:
+            tls:
+            - hosts:
+              - moo-cluster.turkey.local
+              - moo.vcluster-moo-cluster.svc
+              secretName: moo-cluster-tls
+        distro:
+          k3s:
+            enabled: true
+            extraArgs:
+            - --kube-apiserver-arg=oidc-issuer-url=https://dex.howard.moomboo.space
+            - --kube-apiserver-arg=oidc-client-id=wg-kubelogin
+            - --kube-apiserver-arg=oidc-groups-claim=groups
+            image:
+              tag: v1.32.0-k3s1
+        proxy:
+          extraSANs:
+          - moo-cluster.turkey.local
+          - moo.vcluster-moo-cluster.svc
