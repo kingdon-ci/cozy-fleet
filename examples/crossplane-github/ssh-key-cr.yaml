@@ -14,6 +14,7 @@ spec:
         kind: Job
         metadata:
           name: ssh-key-generator
+          namespace: cozy-fluxcd
         spec:
           template:
             spec:
