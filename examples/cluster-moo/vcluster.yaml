@@ -18,6 +18,8 @@ spec:
       controlPlane:
         ingress:
           enabled: true
+          annotations:
+            kubernetes.io/ingress.class: nginx
           host: moo-cluster.turkey.local
           spec:
             tls:
