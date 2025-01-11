@@ -3,4 +3,4 @@ kind: Provider
 metadata:
   name: provider-github
 spec:
-  package: xunholy/provider-github:v0.1.0
+  package: xunholy/provider-github:v0.1.19
