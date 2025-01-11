@@ -33,7 +33,7 @@ spec:
             - --kube-apiserver-arg=oidc-client-id=wg-kubelogin
             - --kube-apiserver-arg=oidc-groups-claim=groups
             image:
-              tag: v1.32.0-k3s1
+              tag: v1.30.8-k3s1
         proxy:
           extraSANs:
           - moo-cluster.turkey.local
