@@ -16,7 +16,7 @@ spec:
     namespace: wordpress
 #   insecureSkipTLSVerify: true
 #   skipCreateNamespace: true
-#   wait: true
+    wait: true
 #   skipCRDs: true
     values:
       service:
