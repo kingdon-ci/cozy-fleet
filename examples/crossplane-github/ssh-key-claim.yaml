@@ -1,0 +1,5 @@
+apiVersion: platform.example.org/v1alpha1
+kind: SSHKeyClaim
+metadata:
+  name: my-ssh-key
+spec: {}
