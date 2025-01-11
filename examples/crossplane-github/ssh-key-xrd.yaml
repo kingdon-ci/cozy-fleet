@@ -22,5 +22,5 @@ spec:
               type: object
             status:
               type: object
-      defaultCompositionRef:
-        name: ssh-key-composition
+  defaultCompositionRef:
+    name: ssh-key-composition
