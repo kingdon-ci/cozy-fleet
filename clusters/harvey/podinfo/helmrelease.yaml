@@ -5,11 +5,18 @@ metadata:
   namespace: podinfo
 spec:
   interval: 10m
+  timeout: 1m
   chartRef:
     kind: OCIRepository
     name: podinfo
   driftDetection:
     mode: enabled
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
   values:
     ingress:
       enabled: true
