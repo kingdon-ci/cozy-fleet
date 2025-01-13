@@ -37,3 +37,8 @@ spec:
               volumes:
                 - name: temp
                   emptyDir: {}
+      connectionDetails:
+        - name: kubeconfig
+          fromConnectionSecretKey: kubeconfig
+      providerRef:
+      name: local-k8s
