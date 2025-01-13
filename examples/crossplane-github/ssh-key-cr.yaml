@@ -50,15 +50,6 @@ spec:
           providerConfigRef:
             name: local-k8s # Reference to the Kubernetes ProviderConfig
       readinessChecks:
-        - type: Resource
-          resourceRef:
-            apiVersion: batch/v1
-            kind: Job
-            name: ssh-key-generator
-            namespace: crossplane-system
-          interval: 5s
-          timeout: 30s
-          retryCount: 3
-          resource:
-            fieldPath: status.succeeded
-            expectedValue: "1"
+      - type: MatchInteger
+        fieldPath: status.succeeded
+        matchInteger: 1
