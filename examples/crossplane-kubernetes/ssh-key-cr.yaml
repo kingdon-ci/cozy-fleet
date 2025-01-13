@@ -21,7 +21,7 @@ spec:
               kind: Job
               metadata:
                 name: ssh-key-generator
-                namespace: crossplane-system
+                namespace: cozy-fluxcd
               spec:
                 template:
                   spec:
@@ -47,4 +47,4 @@ spec:
                       - name: temp
                         emptyDir: {}
           providerConfigRef:
-            name: local-k8s # Reference to the Kubernetes ProviderConfig
+            name: kubernetes-provider
