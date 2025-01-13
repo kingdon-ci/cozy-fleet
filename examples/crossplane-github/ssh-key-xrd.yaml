@@ -3,7 +3,6 @@ kind: CompositeResourceDefinition
 metadata:
   name: sshkeys.platform.example.org
 spec:
-  group: platform.example.org
   names:
     kind: SSHKey
     plural: sshkeys
@@ -24,3 +23,4 @@ spec:
               type: object
   defaultCompositionRef:
     name: ssh-key-composition
+  group: platform.example.org
