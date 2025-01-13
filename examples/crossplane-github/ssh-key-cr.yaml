@@ -6,7 +6,6 @@ spec:
   compositeTypeRef:
     apiVersion: platform.example.org/v1alpha1
     kind: SSHKey
-  writeConnectionSecretsToNamespace: crossplane-system
   resources:
     - name: ssh-key-job
       base:
