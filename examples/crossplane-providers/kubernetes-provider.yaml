@@ -1,7 +1,14 @@
-apiVersion: kubernetes.crossplane.io/v1alpha1
-kind: ProviderConfig
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
 metadata:
-  name: local-k8s
+  name: provider-kubernetes
 spec:
-  credentials:
-    source: InjectedIdentity
+  package: xpkg.upbound.io/upbound/provider-kubernetes:v0.16.0
+# ---
+# apiVersion: kubernetes.crossplane.io/v1alpha1
+# kind: ProviderConfig
+# metadata:
+#   name: local-k8s
+# spec:
+#   credentials:
+#     source: InjectedIdentity
