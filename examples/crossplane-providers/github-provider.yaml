@@ -3,4 +3,4 @@ kind: Provider
 metadata:
   name: provider-github
 spec:
-  package: xunholy/provider-github:v0.1.8
+  package: crossplane-contrib/provider-upjet-github:v0.17.0
