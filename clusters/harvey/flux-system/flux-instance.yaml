@@ -13,4 +13,4 @@ spec:
     url: "ssh://git@github.com/kingdon-ci/cozy-fleet.git"
     ref: "refs/heads/main"
     path: "clusters/harvey"
-    pullSecret: "flux-system"
+    pullSecret: "ssh-key-secret"
