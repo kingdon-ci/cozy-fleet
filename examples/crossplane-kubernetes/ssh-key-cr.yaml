@@ -48,7 +48,3 @@ spec:
                         emptyDir: {}
           providerConfigRef:
             name: local-k8s # Reference to the Kubernetes ProviderConfig
-      readinessChecks:
-      - type: MatchInteger
-        fieldPath: status.succeeded
-        matchInteger: 1
