@@ -26,6 +26,7 @@ spec:
               spec:
                 template:
                   spec:
+                    serviceAccountName: ssh-key-job-service-account
                     containers:
                       - name: keygen
                         image: alpine
