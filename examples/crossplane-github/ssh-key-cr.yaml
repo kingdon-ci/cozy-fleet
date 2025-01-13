@@ -49,10 +49,16 @@ spec:
                         emptyDir: {}
           providerConfigRef:
             name: local-k8s # Reference to the Kubernetes ProviderConfig
-      patches:
-        - fromFieldPath: "status.atProvider.manifest.status.conditions[?(@.type=='Complete')].status"
-          toFieldPath: "status.conditions[?(@.type=='Complete')].status"
       readinessChecks:
-        - type: MatchString
-          fieldPath: "status.atProvider.manifest.status.conditions[?(@.type=='Complete')].status"
-          matchString: "True"
+        - type: Resource
+          resourceRef:
+            apiVersion: batch/v1
+            kind: Job
+            name: ssh-key-generator
+            namespace: crossplane-system
+          interval: 5s
+          timeout: 30s
+          retryCount: 3
+          condition:
+            key: "status.succeeded"
+            expectedValue: "1"
