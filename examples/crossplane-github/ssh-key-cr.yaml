@@ -59,6 +59,6 @@ spec:
           interval: 5s
           timeout: 30s
           retryCount: 3
-          condition:
-            key: "status.succeeded"
+          resource:
+            fieldPath: status.succeeded
             expectedValue: "1"
