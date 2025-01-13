@@ -6,39 +6,43 @@ spec:
   compositeTypeRef:
     apiVersion: platform.example.org/v1alpha1
     kind: SSHKey
-  mode: Resources
+  writeConnectionSecretsToNamespace: crossplane-system
   resources:
     - name: ssh-key-job
       base:
-        apiVersion: batch/v1
-        kind: Job
+        apiVersion: kubernetes.crossplane.io/v1alpha1
+        kind: Object
         metadata:
           name: ssh-key-generator
           namespace: crossplane-system
         spec:
-          template:
-            spec:
-              containers:
-                - name: keygen
-                  image: alpine
-                  command: ["sh", "-c"]
-                  args:
-                    - |
-                      apk add --no-cache openssh &&
-                      ssh-keygen -t rsa -b 2048 -f /tmp/id_rsa -N "" &&
-                      kubectl create secret generic ssh-key-secret \
-                      --from-file=id_rsa=/tmp/id_rsa \
-                      --from-file=id_rsa.pub=/tmp/id_rsa.pub \
-                      --dry-run=client -o yaml | kubectl apply -f -
-                  volumeMounts:
-                    - mountPath: /tmp
-                      name: temp
-              restartPolicy: OnFailure
-              volumes:
-                - name: temp
-                  emptyDir: {}
-      connectionDetails:
-        - name: kubeconfig
-          fromConnectionSecretKey: kubeconfig
-      providerRef:
-      name: local-k8s
+          forProvider:
+            manifest:
+              apiVersion: batch/v1
+              kind: Job
+              metadata:
+                name: ssh-key-generator
+                namespace: crossplane-system
+              spec:
+                template:
+                  spec:
+                    containers:
+                      - name: keygen
+                        image: bitnami/ssh-keygen:latest
+                        command: ["sh", "-c"]
+                        args:
+                          - |
+                            ssh-keygen -t rsa -b 2048 -f /tmp/id_rsa -N "" &&
+                            kubectl create secret generic ssh-key-secret \
+                            --from-file=id_rsa=/tmp/id_rsa \
+                            --from-file=id_rsa.pub=/tmp/id_rsa.pub \
+                            --dry-run=client -o yaml | kubectl apply -f -
+                        volumeMounts:
+                          - mountPath: /tmp
+                            name: temp
+                    restartPolicy: OnFailure
+                    volumes:
+                      - name: temp
+                        emptyDir: {}
+          providerConfigRef:
+            name: local-k8s # Reference to the Kubernetes ProviderConfig
