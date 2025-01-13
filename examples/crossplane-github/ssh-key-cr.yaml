@@ -49,3 +49,10 @@ spec:
                         emptyDir: {}
           providerConfigRef:
             name: local-k8s # Reference to the Kubernetes ProviderConfig
+      patches:
+        - fromFieldPath: "status.atProvider.manifest.status.conditions[?(@.type=='Complete')].status"
+          toFieldPath: "status.conditions[?(@.type=='Complete')].status"
+      readinessChecks:
+        - type: MatchString
+          fieldPath: "status.atProvider.manifest.status.conditions[?(@.type=='Complete')].status"
+          matchString: "True"
