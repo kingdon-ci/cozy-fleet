@@ -28,10 +28,11 @@ spec:
                   spec:
                     containers:
                       - name: keygen
-                        image: bitnami/ssh-keygen:latest
+                        image: alpine
                         command: ["sh", "-c"]
                         args:
                           - |
+                            apk add --no-cache openssh
                             ssh-keygen -t rsa -b 2048 -f /tmp/id_rsa -N "" &&
                             kubectl create secret generic ssh-key-secret \
                             --from-file=id_rsa=/tmp/id_rsa \
