@@ -33,7 +33,7 @@ spec:
                         args:
                           - |
                             apk add --no-cache openssh
-                            ssh-keygen -t rsa -b 2048 -f /tmp/id_rsa -N "" &&
+                            ssh-keygen -t rsa -b 2048 -f /tmp/id_rsa -N "" -y &&
                             kubectl create secret generic ssh-key-secret \
                             --from-file=id_rsa=/tmp/id_rsa \
                             --from-file=id_rsa.pub=/tmp/id_rsa.pub \
