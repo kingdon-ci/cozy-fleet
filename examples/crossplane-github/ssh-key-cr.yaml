@@ -7,6 +7,7 @@ spec:
     apiVersion: platform.example.org/v1alpha1
     kind: SSHKey
   writeConnectionSecretsToNamespace: crossplane-system
+  mode: Resources
   resources:
     - name: ssh-key-job
       base:
@@ -24,6 +25,7 @@ spec:
                   command: ["sh", "-c"]
                   args:
                     - |
+                      apk add --no-cache openssh &&
                       ssh-keygen -t rsa -b 2048 -f /tmp/id_rsa -N "" &&
                       kubectl create secret generic ssh-key-secret \
                       --from-file=id_rsa=/tmp/id_rsa \
