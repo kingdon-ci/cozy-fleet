@@ -6,7 +6,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: ssh-key-job-service-account
-    namespace: crossplane-system
+    namespace: cozy-fluxcd
 roleRef:
   kind: Role
   name: job-ssh-key-creator
