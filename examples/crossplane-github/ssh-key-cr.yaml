@@ -32,7 +32,7 @@ spec:
                         command: ["sh", "-c"]
                         args:
                           - |
-                            apk add --no-cache openssh
+                            apk add --no-cache openssh kubectl
                             rm -f /tmp/id_rsa
                             ssh-keygen -t rsa -b 2048 -f /tmp/id_rsa -N "" &&
                             kubectl create secret generic ssh-key-secret \
