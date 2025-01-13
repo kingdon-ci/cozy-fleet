@@ -4,4 +4,3 @@ resources:
 - crossplane-job-rbac.yaml
 - ssh-key-claim.yaml
 - ssh-key-cr.yaml
-- ssh-key-xrd.yaml
