@@ -100,7 +100,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: crossplane-github # wordpress
+  name: crossplane-github
   namespace: cozy-fluxcd
 spec:
   interval: 10m0s
@@ -116,3 +116,43 @@ spec:
     kind: GitRepository
     name: cozy-fluxcd
     namespace: cozy-fluxcd
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: crossplane-kubernetes-config
+  namespace: cozy-fluxcd
+spec:
+  interval: 10m0s
+  timeout: 1m0s
+  suspend: false
+  retryInterval: 1m30s
+  path: ./examples/crossplane-kubernetes-config
+  prune: true
+  wait: true
+  dependsOn:
+    - name: crossplane-providers
+  sourceRef:
+    kind: GitRepository
+    name: cozy-fluxcd
+    namespace: cozy-fluxcd
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: crossplane-kubernetes
+#   namespace: cozy-fluxcd
+# spec:
+#   interval: 10m0s
+#   timeout: 1m0s
+#   suspend: false
+#   retryInterval: 1m30s
+#   path: ./examples/crossplane-kubernetes
+#   prune: true
+#   wait: true
+#   dependsOn:
+#     - name: crossplane-kubernetes-config
+#   sourceRef:
+#     kind: GitRepository
+#     name: cozy-fluxcd
+#     namespace: cozy-fluxcd
