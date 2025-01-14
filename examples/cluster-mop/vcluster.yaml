@@ -1,0 +1,42 @@
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: VCluster
+metadata:
+  labels:
+    cluster.x-k8s.io/cluster-name: mop
+  name: mop
+  namespace: vcluster-mop-cluster
+spec:
+  controlPlaneEndpoint:
+    host: mop.vcluster-mop-cluster.svc
+    port: 443
+  helmRelease:
+    chart:
+      name: vcluster
+      repo: https://charts.loft.sh
+      version: 0.22.1
+    values: |
+      controlPlane:
+        ingress:
+          enabled: true
+          annotations:
+            kubernetes.io/ingress.class: nginx
+          host: mop-cluster.turkey.local
+          spec:
+            tls:
+            - hosts:
+              - mop-cluster.turkey.local
+              - mop.vcluster-mop-cluster.svc
+              secretName: mop-cluster-tls
+        distro:
+          k3s:
+            enabled: true
+            extraArgs:
+            - --kube-apiserver-arg=oidc-issuer-url=https://dex.howard.moomboo.space
+            - --kube-apiserver-arg=oidc-client-id=wg-kubelogin
+            - --kube-apiserver-arg=oidc-groups-claim=groups
+            image:
+              tag: v1.30.8-k3s1
+        proxy:
+          extraSANs:
+          - mop-cluster.turkey.local
+          - mop.vcluster-mop-cluster.svc
