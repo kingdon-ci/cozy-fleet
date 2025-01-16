@@ -41,5 +41,6 @@ spec:
           - moo-cluster.turkey.local
           - moo.vcluster-moo-cluster.svc
       sync:
-        ingresses:
-          enabled: true
+        toHost:
+          ingresses:
+            enabled: true
