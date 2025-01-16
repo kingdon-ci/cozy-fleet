@@ -40,3 +40,6 @@ spec:
           extraSANs:
           - moo-cluster.turkey.local
           - moo.vcluster-moo-cluster.svc
+      sync:
+        ingresses:
+          enabled: true
