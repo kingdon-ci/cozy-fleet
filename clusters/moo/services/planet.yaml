@@ -5,10 +5,12 @@ metadata:
   namespace: socryx-topled
 spec:
   ports:
-  - name: urbit-http
+  - name: urbit-http-2
     port: 8080
-  - name: urbit-https
+    targetPort: 8080
+  - name: urbit-https-2
     port: 8443
+    targetPort: 8443
 ---
 kind: Endpoints
 apiVersion: v1
@@ -17,9 +19,9 @@ metadata:
   namespace: socryx-topled
 subsets:
 - addresses:
-  - ip: 10.17.12.102
+  - ip: 10.17.13.139
   ports:
   - port: 8080
-    name: urbit-http
+    name: urbit-http-2
   - port: 8443
-    name: urbit-https
+    name: urbit-https-2

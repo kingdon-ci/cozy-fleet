@@ -3,6 +3,15 @@ kind: Ingress
 metadata:
   name: planet
   namespace: socryx-topled
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: AUTO_HTTP
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      if ($scheme = http) {
+        set $proxy_upstream_name "socryx-topled-planet-8080";
+        set $proxy_host $proxy_upstream_name;
+      }
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   ingressClassName: nginx
   rules:
@@ -13,9 +22,20 @@ spec:
           service:
             name: planet
             port:
+              number: 8443
+        path: /
+        pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: planet
+            port:
               number: 8080
         path: /
         pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - socryx-topled.arvo.network
+    secretName: planet-tls
 # ---
 # apiVersion: networking.k8s.io/v1
 # kind: Ingress
