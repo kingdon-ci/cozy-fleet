@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: AUTO_HTTP
     nginx.ingress.kubernetes.io/configuration-snippet: |
       if ($scheme = http) {
-        set $proxy_upstream_name "socryx-topled-planet-8080";
+        set $proxy_upstream_name "vcluster-moo-cluster-planet-x-socryx-topled-x-moo-8080";
         set $proxy_host $proxy_upstream_name;
       }
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
