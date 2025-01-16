@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: planet
+  namespace: socryx-topled
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: socryx-topled.arvo.network
+    http:
+      paths:
+      - backend:
+          service:
+            name: planet
+            port:
+              number: 8080
+        path: /
+        pathType: ImplementationSpecific
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: planet-tls
+#   namespace: socryx-topled
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#   - host: socryx-topled.arvo.network
+#     http:
+#       paths:
+#       - backend:
+#           service:
+#             name: planet
+#             port:
+#               number: 8443
+#         path: /
+#         pathType: ImplementationSpecific
+#   tls:
+#   - hosts:
+#     - socryx-topled.arvo.network
+#     secretName: planet-tls
