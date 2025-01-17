@@ -13,7 +13,7 @@ spec:
     chart:
       name: vcluster
       repo: https://charts.loft.sh
-      version: 0.22.1
+      version: 0.22.3
     values: |
       controlPlane:
         ingress:
@@ -31,7 +31,7 @@ spec:
           k3s:
             enabled: true
             extraArgs:
-            - --kube-apiserver-arg=oidc-issuer-url=https://dex.howard.moomboo.space
+            - --kube-apiserver-arg=oidc-issuer-url=https://dex.harvey.moomboo.space
             - --kube-apiserver-arg=oidc-client-id=wg-kubelogin
             - --kube-apiserver-arg=oidc-groups-claim=groups
             image:
