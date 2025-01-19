@@ -19,7 +19,7 @@ metadata:
   namespace: socryx-topled
 subsets:
 - addresses:
-  - ip: 10.17.12.102
+  - ip: 10.17.13.139
   ports:
   - port: 8080
     name: urbit-http-2
