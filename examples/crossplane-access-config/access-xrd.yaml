@@ -4,7 +4,6 @@ kind: CompositeResourceDefinition
 metadata:
   name: accesses.access.urmanac.com
 spec:
-  group: access.urmanac.com
   names:
     kind: Access
     plural: accesses
@@ -36,3 +35,6 @@ spec:
     - name: Group
       type: string
       jsonPath: .spec.group
+  defaultCompositionRef:
+    name: ssh-key-composition
+  group: access.urmanac.com
