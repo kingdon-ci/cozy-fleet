@@ -1,0 +1,8 @@
+apiVersion: access.urmanac.com/v1alpha1
+kind: AccessClaim
+metadata:
+  name: access-mop
+  namespace: vcluster-mop-cluster
+spec:
+  vClusterName: mop
+  group: kingdon-ci:cozy-vcluster-sre

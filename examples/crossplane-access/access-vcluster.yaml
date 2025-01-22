@@ -1,0 +1,8 @@
+apiVersion: access.urmanac.com/v1alpha1
+kind: AccessClaim
+metadata:
+  name: access-vcluster
+  namespace: vcluster-vcluster-cluster
+spec:
+  vClusterName: vcluster
+  group: kingdon-ci:cozy-vcluster-sre
