@@ -1,0 +1,11 @@
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: vcluster-vcluster
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: vcluster-vcluster-cluster
+      name: vcluster-kubeconfig
+      key: value
