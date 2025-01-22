@@ -41,5 +41,5 @@ spec:
               fromFieldPath: "spec.group"
               toFieldPath: "spec.forProvider.manifest.subjects[0].name"
   compositeTypeRef:
-    apiVersion: accesses.urmanac.com/v1alpha1
+    apiVersion: access.urmanac.com/v1alpha1
     kind: Access
