@@ -36,5 +36,5 @@ spec:
       type: string
       jsonPath: .spec.group
   defaultCompositionRef:
-    name: ssh-key-composition
+    name: vcluster-with-access
   group: access.urmanac.com
