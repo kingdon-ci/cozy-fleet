@@ -41,6 +41,14 @@ spec:
             - type: FromCompositeFieldPath
               fromFieldPath: "spec.group"
               toFieldPath: "spec.forProvider.manifest.subjects[0].name"
+            - type: CombineFromComposite
+              combine:
+                variables:
+                  - fromFieldPath: "spec.vClusterName"
+                strategy: string
+                string:
+                  fmt: "vcluster-%s"
+              toFieldPath: "spec.providerConfigRef.name"
   compositeTypeRef:
     apiVersion: access.urmanac.com/v1alpha1
     kind: Access
