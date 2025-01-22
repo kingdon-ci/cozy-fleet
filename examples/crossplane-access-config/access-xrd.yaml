@@ -1,0 +1,40 @@
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: accesses.access.urmanac.com
+spec:
+  names:
+    kind: Access
+    plural: accesses
+  claimNames:
+    kind: AccessClaim
+    plural: accessclaims
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              vClusterName:
+                type: string
+              group:
+                type: string
+            required:
+            - vClusterName
+            - group
+    additionalPrinterColumns:
+    - name: VCluster
+      type: string
+      jsonPath: .spec.vClusterName
+    - name: Group
+      type: string
+      jsonPath: .spec.group
+  defaultCompositionRef:
+    name: vcluster-with-access
+  group: access.urmanac.com

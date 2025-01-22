@@ -1,0 +1,11 @@
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: vcluster-moo
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: vcluster-moo-cluster
+      name: moo-kubeconfig
+      key: value
