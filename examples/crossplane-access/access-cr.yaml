@@ -36,7 +36,7 @@ spec:
           patches:
             - type: FromCompositeFieldPath
               fromFieldPath: "spec.group"
-              toFieldPath: "spec.forProvider.metadata.name"
+              toFieldPath: "spec.forProvider.manifest.metadata.name"
             - type: FromCompositeFieldPath
               fromFieldPath: "spec.group"
               toFieldPath: "spec.forProvider.manifest.subjects[0].name"
