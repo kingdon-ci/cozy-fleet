@@ -1,4 +1,4 @@
-apiVersion: access.urmanac.com/v1alpha1
+apiVersion: urbit.urmanac.com/v1alpha1
 kind: PlanetClaim
 metadata:
   name: socryx-topled
