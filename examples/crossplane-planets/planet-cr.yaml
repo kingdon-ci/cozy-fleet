@@ -12,7 +12,19 @@ spec:
       apiVersion: pt.fn.crossplane.io/v1beta1
       kind: Resources
       resources:
-        - name: planet
+        - name: namespace
+          base:
+            apiVersion: kubernetes.crossplane.io/v1alpha2
+            kind: Object
+            spec:
+              managementPolicies: ["Observe", "Create", "Update", "Delete"]
+              forProvider:
+                manifest:
+                  apiVersion: v1
+                  kind: Namespace
+                  metadata:
+                    name: socryx-topled
+        - name: ingress
           base:
             apiVersion: kubernetes.crossplane.io/v1alpha2
             kind: Object
@@ -58,12 +70,14 @@ spec:
                     - hosts:
                       - socryx-topled.arvo.network
                       secretName: planet-tls
-                  ---
-                  apiVersion: v1
-                  kind: Namespace
-                  metadata:
-                    name: socryx-topled
-                  ---
+        - name: service
+          base:
+            apiVersion: kubernetes.crossplane.io/v1alpha2
+            kind: Object
+            spec:
+              managementPolicies: ["Observe", "Create", "Update", "Delete"]
+              forProvider:
+                manifest:
                   apiVersion: v1
                   kind: Service
                   metadata:
@@ -77,7 +91,14 @@ spec:
                     - name: urbit-https
                       port: 8443
                       targetPort: 8443
-                  ---
+        - name: endpoints
+          base:
+            apiVersion: kubernetes.crossplane.io/v1alpha2
+            kind: Object
+            spec:
+              managementPolicies: ["Observe", "Create", "Update", "Delete"]
+              forProvider:
+                manifest:
                   kind: Endpoints
                   apiVersion: v1
                   metadata:
