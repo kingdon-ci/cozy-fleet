@@ -33,9 +33,7 @@ spec:
                 type: string
               envValue:
                 type: string
-            required:
-            - vClusterName
-            - appImage
+            required: []
     additionalPrinterColumns:
     - name: VCluster
       type: string
