@@ -35,6 +35,7 @@ spec:
             - --kube-apiserver-arg=oidc-client-id=wg-kubelogin
             - --kube-apiserver-arg=oidc-groups-claim=groups
             - --disable=rolebindings,runtimes
+            - --disable-helm-controller
             image:
               tag: v1.30.8-k3s1
         proxy:
