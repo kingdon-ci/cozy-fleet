@@ -1,0 +1,9 @@
+apiVersion: access.urmanac.com/v1alpha1
+kind: PlanetClaim
+metadata:
+  name: socryx-topled
+  namespace: vcluster-moo-cluster
+spec:
+  vClusterName: moo
+  planetName: socryx-topled
+  externalIP: 10.17.13.139

@@ -1,0 +1,113 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: external-planet
+spec:
+  mode: Pipeline
+  pipeline:
+  - step: patch-and-transform
+    functionRef:
+      name: function-patch-and-transform
+    input:
+      apiVersion: pt.fn.crossplane.io/v1beta1
+      kind: Resources
+      resources:
+        - name: planet
+          base:
+            apiVersion: kubernetes.crossplane.io/v1alpha2
+            kind: Object
+            spec:
+              managementPolicies: ["Observe", "Create", "Update", "Delete"]
+              forProvider:
+                manifest:
+                  apiVersion: networking.k8s.io/v1
+                  kind: Ingress
+                  metadata:
+                    name: planet
+                    namespace: socryx-topled
+                    annotations:
+                      nginx.ingress.kubernetes.io/backend-protocol: AUTO_HTTP
+                      nginx.ingress.kubernetes.io/configuration-snippet: |
+                        if ($scheme = http) {
+                          set $proxy_upstream_name "vcluster-moo-cluster-planet-x-socryx-topled-x-moo-8080";
+                          set $proxy_host $proxy_upstream_name;
+                        }
+                      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+                      nginx.ingress.kubernetes.io/ssl-redirect: "false"
+                  spec:
+                    ingressClassName: nginx
+                    rules:
+                    - host: socryx-topled.arvo.network
+                      http:
+                        paths:
+                        - backend:
+                            service:
+                              name: planet
+                              port:
+                                number: 8443
+                          path: /
+                          pathType: ImplementationSpecific
+                        - backend:
+                            service:
+                              name: planet
+                              port:
+                                number: 8080
+                          path: /
+                          pathType: ImplementationSpecific
+                    tls:
+                    - hosts:
+                      - socryx-topled.arvo.network
+                      secretName: planet-tls
+                  ---
+                  apiVersion: v1
+                  kind: Namespace
+                  metadata:
+                    name: socryx-topled
+                  ---
+                  apiVersion: v1
+                  kind: Service
+                  metadata:
+                    name: planet
+                    namespace: socryx-topled
+                  spec:
+                    ports:
+                    - name: urbit-http
+                      port: 8080
+                      targetPort: 8080
+                    - name: urbit-https
+                      port: 8443
+                      targetPort: 8443
+                  ---
+                  kind: Endpoints
+                  apiVersion: v1
+                  metadata:
+                    name: planet
+                    namespace: socryx-topled
+                  subsets:
+                  - addresses:
+                    - ip: 10.17.13.139
+                    ports:
+                    - port: 8080
+                      name: urbit-http
+                    - port: 8443
+                      name: urbit-https
+              providerConfigRef:
+                name: vcluster-moo
+          patches: []
+            # - type: FromCompositeFieldPath
+            #   fromFieldPath: "spec.group"
+            #   toFieldPath: "spec.forProvider.manifest.metadata.name"
+            # - type: FromCompositeFieldPath
+            #   fromFieldPath: "spec.group"
+            #   toFieldPath: "spec.forProvider.manifest.subjects[0].name"
+            # - type: CombineFromComposite
+            #   combine:
+            #     variables:
+            #       - fromFieldPath: "spec.vClusterName"
+            #     strategy: string
+            #     string:
+            #       fmt: "vcluster-%s"
+            #   toFieldPath: "spec.providerConfigRef.name"
+  compositeTypeRef:
+    apiVersion: urbit.urmanac.com/v1alpha1
+    kind: Planet
