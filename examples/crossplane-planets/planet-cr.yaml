@@ -24,6 +24,8 @@ spec:
                   kind: Namespace
                   metadata:
                     name: socryx-topled
+              providerConfigRef:
+                name: vcluster-moo
         - name: ingress
           base:
             apiVersion: kubernetes.crossplane.io/v1alpha2
@@ -70,6 +72,8 @@ spec:
                     - hosts:
                       - socryx-topled.arvo.network
                       secretName: planet-tls
+              providerConfigRef:
+                name: vcluster-moo
         - name: service
           base:
             apiVersion: kubernetes.crossplane.io/v1alpha2
@@ -91,6 +95,8 @@ spec:
                     - name: urbit-https
                       port: 8443
                       targetPort: 8443
+              providerConfigRef:
+                name: vcluster-moo
         - name: endpoints
           base:
             apiVersion: kubernetes.crossplane.io/v1alpha2
