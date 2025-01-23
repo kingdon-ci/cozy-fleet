@@ -43,4 +43,4 @@ spec:
       jsonPath: .spec.externalIP
   defaultCompositionRef:
     name: external-planet
-  group: access.urmanac.com
+  group: urbit.urmanac.com
