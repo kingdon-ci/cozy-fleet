@@ -1,0 +1,46 @@
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: planets.urbit.urmanac.com
+spec:
+  names:
+    kind: Planet
+    plural: planets
+  claimNames:
+    kind: PlanetClaim
+    plural: planetclaims
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              vClusterName:
+                type: string
+              planetName:
+                type: string
+              externalIP:
+                type: string
+            required:
+            - vClusterName
+            - planetName
+            - externalIP
+    additionalPrinterColumns:
+    - name: VCluster
+      type: string
+      jsonPath: .spec.vClusterName
+    - name: Planet
+      type: string
+      jsonPath: .spec.planetName
+    - name: ExternalIP
+      type: string
+      jsonPath: .spec.externalIP
+  defaultCompositionRef:
+    name: external-planet
+  group: urbit.urmanac.com

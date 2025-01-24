@@ -1,0 +1,52 @@
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: myapp.hephy.urmanac.com
+spec:
+  names:
+    kind: MyApp
+    plural: myapps
+  claimNames:
+    kind: MyAppClaim
+    plural: myappclaims
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              vClusterName:
+                type: string
+              appImage:
+                type: string
+              redisIP:
+                type: string
+              redisPass:
+                type: string
+              envKey:
+                type: string
+              envValue:
+                type: string
+            required: []
+    additionalPrinterColumns:
+    - name: VCluster
+      type: string
+      jsonPath: .spec.vClusterName
+    - name: AppImage
+      type: string
+      jsonPath: .spec.appImage
+    - name: RedisIP
+      type: string
+      jsonPath: .spec.redisIP
+    - name: EnvKey
+      type: string
+      jsonPath: .spec.envKey
+  defaultCompositionRef:
+    name: myapp-stateless
+  group: hephy.urmanac.com
