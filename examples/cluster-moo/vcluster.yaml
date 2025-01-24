@@ -44,5 +44,7 @@ spec:
           - moo.vcluster-moo-cluster.svc
       sync:
         toHost:
+          endpoints:
+            enabled: true
           ingresses:
             enabled: true
