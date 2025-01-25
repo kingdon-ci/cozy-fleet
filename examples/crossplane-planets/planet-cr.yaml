@@ -112,7 +112,7 @@ spec:
                     namespace: socryx-topled
                   subsets:
                   - addresses:
-                    - ip: 10.17.13.139
+                    - ip: 0.0.0.0
                     ports:
                     - port: 8080
                       name: urbit-http
@@ -120,10 +120,10 @@ spec:
                       name: urbit-https
               providerConfigRef:
                 name: vcluster-moo
-          patches: []
-            # - type: FromCompositeFieldPath
-            #   fromFieldPath: "spec.group"
-            #   toFieldPath: "spec.forProvider.manifest.metadata.name"
+          patches:
+            - type: FromCompositeFieldPath
+              fromFieldPath: "spec.externalIP"
+              toFieldPath: "spec.forProvider.manifest.subsets[0].addresses[0].ip"
             # - type: FromCompositeFieldPath
             #   fromFieldPath: "spec.group"
             #   toFieldPath: "spec.forProvider.manifest.subjects[0].name"
