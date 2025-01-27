@@ -1,0 +1,11 @@
+apiVersion: hephy.urmanac.com/v1alpha1
+kind: MyApp
+metadata:
+  name: ob-mirror
+  namespace: vcluster-mop-cluster
+spec:
+  compositionSelector:
+    matchLabels:
+      test: ob-mirror
+  envKey: AUTH_TOKEN
+  # envValue: redacted
