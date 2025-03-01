@@ -1,0 +1,21 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: FluxInstance
+metadata:
+  name: flux
+  namespace: cozy-fluxcd
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    kustomize.toolkit.fluxcd.io/ssa: merge
+spec:
+  sync:
+    kind: GitRepository
+    url: "https://github.com/kingdon-ci/cozy-fleet.git"
+    ref: "refs/heads/main"
+    path: "clusters/cozy-admin"
+  # cluster: {}
+  # components: []
+  # distribution: {}
+  # kustomize: {}
+  #   patches:
+  # migrateResources: true
+  # wait: true
