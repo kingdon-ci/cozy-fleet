@@ -1,0 +1,148 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: external-synology-metnoom
+spec:
+  mode: Pipeline
+  pipeline:
+  - step: patch-and-transform
+    functionRef:
+      name: function-patch-and-transform
+    input:
+      apiVersion: pt.fn.crossplane.io/v1beta1
+      kind: Resources
+      resources:
+        - name: namespace
+          base:
+            apiVersion: kubernetes.crossplane.io/v1alpha2
+            kind: Object
+            spec:
+              managementPolicies: ["Observe", "Create", "Update", "Delete"]
+              forProvider:
+                manifest:
+                  apiVersion: v1
+                  kind: Namespace
+                  metadata:
+                    name: synology
+              providerConfigRef:
+                name: vcluster-moo
+        - name: ingress
+          base:
+            apiVersion: kubernetes.crossplane.io/v1alpha2
+            kind: Object
+            spec:
+              managementPolicies: ["Observe", "Create", "Update", "Delete"]
+              forProvider:
+                manifest:
+                  apiVersion: networking.k8s.io/v1
+                  kind: Ingress
+                  metadata:
+                    name: metnoom
+                    namespace: synology
+                    annotations:
+                      nginx.ingress.kubernetes.io/backend-protocol: AUTO_HTTP
+                      nginx.ingress.kubernetes.io/configuration-snippet: |
+                        if ($scheme = http) {
+                          set $proxy_upstream_name "vcluster-moo-cluster-metnoom-x-synology-x-moo-8080";
+                          set $proxy_host $proxy_upstream_name;
+                        }
+                      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+                      nginx.ingress.kubernetes.io/ssl-redirect: "false"
+                  spec:
+                    ingressClassName: nginx
+                    rules:
+                    - host: metnoom.urmanac.com
+                      http:
+                        paths:
+                        - backend:
+                            service:
+                              name: metnoom
+                              port:
+                                number: 443
+                          path: /
+                          pathType: ImplementationSpecific
+                        - backend:
+                            service:
+                              name: metnoom
+                              port:
+                                number: 80
+                          path: /
+                          pathType: ImplementationSpecific
+                    tls:
+                    - hosts:
+                      - metnoom.urmanac.com
+                      secretName: metnoom-tls
+              providerConfigRef:
+                name: vcluster-moo
+          patches:
+            - type: FromCompositeFieldPath
+              fromFieldPath: "spec.externalIP"
+              toFieldPath: "spec.forProvider.manifest.subsets[0].addresses[0].ip"
+        - name: service
+          base:
+            apiVersion: kubernetes.crossplane.io/v1alpha2
+            kind: Object
+            spec:
+              managementPolicies: ["Observe", "Create", "Update", "Delete"]
+              forProvider:
+                manifest:
+                  apiVersion: v1
+                  kind: Service
+                  metadata:
+                    name: metnoom
+                    namespace: synology
+                  spec:
+                    ports:
+                    - name: http
+                      port: 80
+                      targetPort: 80
+                    - name: https
+                      port: 443
+                      targetPort: 443
+              providerConfigRef:
+                name: vcluster-moo
+          patches:
+            - type: FromCompositeFieldPath
+              fromFieldPath: "spec.planetName"
+              toFieldPath: "spec.forProvider.manifest.metadata.name"
+        - name: endpoints
+          base:
+            apiVersion: kubernetes.crossplane.io/v1alpha2
+            kind: Object
+            spec:
+              managementPolicies: ["Observe", "Create", "Update", "Delete"]
+              forProvider:
+                manifest:
+                  kind: Endpoints
+                  apiVersion: v1
+                  metadata:
+                    name: synology
+                    namespace: metnoom
+                  subsets:
+                  - addresses:
+                    - ip: 0.0.0.0
+                    ports:
+                    - port: 80
+                      name: http
+                    - port: 443
+                      name: https
+              providerConfigRef:
+                name: vcluster-moo
+          patches:
+            - type: FromCompositeFieldPath
+              fromFieldPath: "spec.externalIP"
+              toFieldPath: "spec.forProvider.manifest.subsets[0].addresses[0].ip"
+            # - type: FromCompositeFieldPath
+            #   fromFieldPath: "spec.group"
+            #   toFieldPath: "spec.forProvider.manifest.subjects[0].name"
+            # - type: CombineFromComposite
+            #   combine:
+            #     variables:
+            #       - fromFieldPath: "spec.vClusterName"
+            #     strategy: string
+            #     string:
+            #       fmt: "vcluster-%s"
+            #   toFieldPath: "spec.providerConfigRef.name"
+  compositeTypeRef:
+    apiVersion: urbit.urmanac.com/v1alpha1
+    kind: Planet

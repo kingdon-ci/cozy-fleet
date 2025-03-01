@@ -1,0 +1,23 @@
+apiVersion: urbit.urmanac.com/v1alpha1
+kind: PlanetClaim
+metadata:
+  name: netmoom
+  namespace: vcluster-moo-cluster
+spec:
+  vClusterName: moo
+  planetName: netmoom
+  externalIP: 10.17.13.254
+  compositionRef:
+    name: external-synology-netmoom
+---
+apiVersion: urbit.urmanac.com/v1alpha1
+kind: PlanetClaim
+metadata:
+  name: metnoom
+  namespace: vcluster-moo-cluster
+spec:
+  vClusterName: moo
+  planetName: metnoom
+  externalIP: 10.17.13.140
+  compositionRef:
+    name: external-synology-metnoom
