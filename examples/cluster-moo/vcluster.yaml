@@ -13,7 +13,7 @@ spec:
     chart:
       name: vcluster
       repo: https://charts.loft.sh
-      version: 0.22.3
+      version: 0.22.4
     values: |
       controlPlane:
         ingress:
