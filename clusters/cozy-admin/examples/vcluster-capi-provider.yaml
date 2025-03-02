@@ -1,0 +1,18 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: capi-vcluster
+  namespace: cozy-fluxcd
+spec:
+  interval: 10m0s
+  timeout: 1m0s
+  suspend: false
+  retryInterval: 1m30s
+  path: ./examples/cluster-api-provider-vcluster
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: cozy-fluxcd
+    namespace: cozy-fluxcd

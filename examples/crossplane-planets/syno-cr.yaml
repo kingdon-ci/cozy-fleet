@@ -49,7 +49,7 @@ spec:
                       nginx.ingress.kubernetes.io/ssl-passthrough: "true"
                       nginx.ingress.kubernetes.io/ssl-redirect: "false"
                   spec:
-                    ingressClassName: nginx
+                    ingressClassName: tenant-test
                     rules:
                     - host: netmoom.urmanac.com
                       http:
