@@ -7,5 +7,5 @@ spec:
     source: Secret
     secretRef:
       namespace: vcluster-moo-cluster
-      name: moo-kubeconfig
-      key: value
+      name: vc-moo
+      key: config
