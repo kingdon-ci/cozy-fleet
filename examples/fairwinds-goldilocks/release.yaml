@@ -10,7 +10,7 @@ spec:
   storageNamespace: goldilocks
   chart:
     spec:
-      chart: dex
+      chart: goldilocks
       version: 0.19.1
       sourceRef:
         kind: HelmRepository
