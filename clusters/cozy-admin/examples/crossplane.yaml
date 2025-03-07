@@ -16,243 +16,243 @@ spec:
     kind: GitRepository
     name: cozy-fluxcd
     namespace: cozy-fluxcd
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: crossplane-providers
-  namespace: cozy-fluxcd
-spec:
-  interval: 10m0s
-  timeout: 1m0s
-  suspend: false
-  retryInterval: 1m30s
-  path: ./examples/crossplane-providers
-  prune: true
-  wait: true
-  dependsOn:
-    - name: crossplane-system
-  sourceRef:
-    kind: GitRepository
-    name: cozy-fluxcd
-    namespace: cozy-fluxcd
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: crossplane-functions
-  namespace: cozy-fluxcd
-spec:
-  interval: 10m0s
-  timeout: 1m0s
-  suspend: false
-  retryInterval: 1m30s
-  path: ./examples/crossplane-functions
-  prune: true
-  wait: true
-  dependsOn:
-    - name: crossplane-system
-  sourceRef:
-    kind: GitRepository
-    name: cozy-fluxcd
-    namespace: cozy-fluxcd
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: crossplane-helm-config
-  namespace: cozy-fluxcd
-spec:
-  interval: 10m0s
-  timeout: 1m0s
-  suspend: false
-  retryInterval: 1m30s
-  path: ./examples/crossplane-helm-config
-  prune: true
-  wait: true
-  dependsOn:
-    - name: crossplane-providers
-  sourceRef:
-    kind: GitRepository
-    name: cozy-fluxcd
-    namespace: cozy-fluxcd
 # ---
 # apiVersion: kustomize.toolkit.fluxcd.io/v1
 # kind: Kustomization
 # metadata:
-#   name: crossplane-helm # wordpress
+#   name: crossplane-providers
 #   namespace: cozy-fluxcd
 # spec:
 #   interval: 10m0s
 #   timeout: 1m0s
 #   suspend: false
 #   retryInterval: 1m30s
-#   path: ./examples/crossplane-helm
+#   path: ./examples/crossplane-providers
 #   prune: true
 #   wait: true
 #   dependsOn:
-#     - name: crossplane-helm-config
+#     - name: crossplane-system
 #   sourceRef:
 #     kind: GitRepository
 #     name: cozy-fluxcd
 #     namespace: cozy-fluxcd
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: crossplane-github-config
-  namespace: cozy-fluxcd
-spec:
-  interval: 10m0s
-  timeout: 1m0s
-  suspend: false
-  retryInterval: 1m30s
-  path: ./examples/crossplane-github-config
-  prune: true
-  wait: true
-  dependsOn:
-    - name: crossplane-providers
-  sourceRef:
-    kind: GitRepository
-    name: cozy-fluxcd
-    namespace: cozy-fluxcd
 # ---
 # apiVersion: kustomize.toolkit.fluxcd.io/v1
 # kind: Kustomization
 # metadata:
-#   name: crossplane-github
+#   name: crossplane-functions
 #   namespace: cozy-fluxcd
 # spec:
 #   interval: 10m0s
 #   timeout: 1m0s
 #   suspend: false
 #   retryInterval: 1m30s
-#   path: ./examples/crossplane-github
+#   path: ./examples/crossplane-functions
 #   prune: true
 #   wait: true
 #   dependsOn:
-#     - name: crossplane-github-config
+#     - name: crossplane-system
 #   sourceRef:
 #     kind: GitRepository
 #     name: cozy-fluxcd
 #     namespace: cozy-fluxcd
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: crossplane-kubernetes-config
-  namespace: cozy-fluxcd
-spec:
-  interval: 10m0s
-  timeout: 1m0s
-  suspend: false
-  retryInterval: 1m30s
-  path: ./examples/crossplane-kubernetes-config
-  prune: true
-  wait: true
-  dependsOn:
-    - name: crossplane-providers
-  sourceRef:
-    kind: GitRepository
-    name: cozy-fluxcd
-    namespace: cozy-fluxcd
 # ---
 # apiVersion: kustomize.toolkit.fluxcd.io/v1
 # kind: Kustomization
 # metadata:
-#   name: crossplane-kubernetes
+#   name: crossplane-helm-config
 #   namespace: cozy-fluxcd
 # spec:
 #   interval: 10m0s
 #   timeout: 1m0s
 #   suspend: false
 #   retryInterval: 1m30s
-#   path: ./examples/crossplane-kubernetes
+#   path: ./examples/crossplane-helm-config
 #   prune: true
 #   wait: true
 #   dependsOn:
-#     - name: crossplane-kubernetes-config
+#     - name: crossplane-providers
 #   sourceRef:
 #     kind: GitRepository
 #     name: cozy-fluxcd
 #     namespace: cozy-fluxcd
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: crossplane-access-config
-  namespace: cozy-fluxcd
-spec:
-  interval: 10m0s
-  timeout: 1m0s
-  suspend: false
-  retryInterval: 1m30s
-  path: ./examples/crossplane-access-config
-  prune: true
-  wait: true
-  dependsOn:
-    - name: crossplane-providers
-  sourceRef:
-    kind: GitRepository
-    name: cozy-fluxcd
-    namespace: cozy-fluxcd
+# # ---
+# # apiVersion: kustomize.toolkit.fluxcd.io/v1
+# # kind: Kustomization
+# # metadata:
+# #   name: crossplane-helm # wordpress
+# #   namespace: cozy-fluxcd
+# # spec:
+# #   interval: 10m0s
+# #   timeout: 1m0s
+# #   suspend: false
+# #   retryInterval: 1m30s
+# #   path: ./examples/crossplane-helm
+# #   prune: true
+# #   wait: true
+# #   dependsOn:
+# #     - name: crossplane-helm-config
+# #   sourceRef:
+# #     kind: GitRepository
+# #     name: cozy-fluxcd
+# #     namespace: cozy-fluxcd
 # ---
 # apiVersion: kustomize.toolkit.fluxcd.io/v1
 # kind: Kustomization
 # metadata:
-#   name: crossplane-access
+#   name: crossplane-github-config
 #   namespace: cozy-fluxcd
 # spec:
 #   interval: 10m0s
 #   timeout: 1m0s
 #   suspend: false
 #   retryInterval: 1m30s
-#   path: ./examples/crossplane-access
+#   path: ./examples/crossplane-github-config
 #   prune: true
 #   wait: true
 #   dependsOn:
-#     - name: crossplane-access-config
+#     - name: crossplane-providers
 #   sourceRef:
 #     kind: GitRepository
 #     name: cozy-fluxcd
 #     namespace: cozy-fluxcd
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: crossplane-planets-config
-  namespace: cozy-fluxcd
-spec:
-  interval: 10m0s
-  timeout: 1m0s
-  suspend: false
-  retryInterval: 1m30s
-  path: ./examples/crossplane-planets-config
-  prune: true
-  wait: true
-  dependsOn:
-    - name: crossplane-providers
-  sourceRef:
-    kind: GitRepository
-    name: cozy-fluxcd
-    namespace: cozy-fluxcd
+# # ---
+# # apiVersion: kustomize.toolkit.fluxcd.io/v1
+# # kind: Kustomization
+# # metadata:
+# #   name: crossplane-github
+# #   namespace: cozy-fluxcd
+# # spec:
+# #   interval: 10m0s
+# #   timeout: 1m0s
+# #   suspend: false
+# #   retryInterval: 1m30s
+# #   path: ./examples/crossplane-github
+# #   prune: true
+# #   wait: true
+# #   dependsOn:
+# #     - name: crossplane-github-config
+# #   sourceRef:
+# #     kind: GitRepository
+# #     name: cozy-fluxcd
+# #     namespace: cozy-fluxcd
 # ---
 # apiVersion: kustomize.toolkit.fluxcd.io/v1
 # kind: Kustomization
 # metadata:
-#   name: crossplane-planets
+#   name: crossplane-kubernetes-config
 #   namespace: cozy-fluxcd
 # spec:
 #   interval: 10m0s
 #   timeout: 1m0s
 #   suspend: false
 #   retryInterval: 1m30s
-#   path: ./examples/crossplane-planets
+#   path: ./examples/crossplane-kubernetes-config
 #   prune: true
 #   wait: true
 #   dependsOn:
-#     - name: crossplane-planets-config
+#     - name: crossplane-providers
 #   sourceRef:
 #     kind: GitRepository
 #     name: cozy-fluxcd
 #     namespace: cozy-fluxcd
+# # ---
+# # apiVersion: kustomize.toolkit.fluxcd.io/v1
+# # kind: Kustomization
+# # metadata:
+# #   name: crossplane-kubernetes
+# #   namespace: cozy-fluxcd
+# # spec:
+# #   interval: 10m0s
+# #   timeout: 1m0s
+# #   suspend: false
+# #   retryInterval: 1m30s
+# #   path: ./examples/crossplane-kubernetes
+# #   prune: true
+# #   wait: true
+# #   dependsOn:
+# #     - name: crossplane-kubernetes-config
+# #   sourceRef:
+# #     kind: GitRepository
+# #     name: cozy-fluxcd
+# #     namespace: cozy-fluxcd
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: crossplane-access-config
+#   namespace: cozy-fluxcd
+# spec:
+#   interval: 10m0s
+#   timeout: 1m0s
+#   suspend: false
+#   retryInterval: 1m30s
+#   path: ./examples/crossplane-access-config
+#   prune: true
+#   wait: true
+#   dependsOn:
+#     - name: crossplane-providers
+#   sourceRef:
+#     kind: GitRepository
+#     name: cozy-fluxcd
+#     namespace: cozy-fluxcd
+# # ---
+# # apiVersion: kustomize.toolkit.fluxcd.io/v1
+# # kind: Kustomization
+# # metadata:
+# #   name: crossplane-access
+# #   namespace: cozy-fluxcd
+# # spec:
+# #   interval: 10m0s
+# #   timeout: 1m0s
+# #   suspend: false
+# #   retryInterval: 1m30s
+# #   path: ./examples/crossplane-access
+# #   prune: true
+# #   wait: true
+# #   dependsOn:
+# #     - name: crossplane-access-config
+# #   sourceRef:
+# #     kind: GitRepository
+# #     name: cozy-fluxcd
+# #     namespace: cozy-fluxcd
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: crossplane-planets-config
+#   namespace: cozy-fluxcd
+# spec:
+#   interval: 10m0s
+#   timeout: 1m0s
+#   suspend: false
+#   retryInterval: 1m30s
+#   path: ./examples/crossplane-planets-config
+#   prune: true
+#   wait: true
+#   dependsOn:
+#     - name: crossplane-providers
+#   sourceRef:
+#     kind: GitRepository
+#     name: cozy-fluxcd
+#     namespace: cozy-fluxcd
+# # ---
+# # apiVersion: kustomize.toolkit.fluxcd.io/v1
+# # kind: Kustomization
+# # metadata:
+# #   name: crossplane-planets
+# #   namespace: cozy-fluxcd
+# # spec:
+# #   interval: 10m0s
+# #   timeout: 1m0s
+# #   suspend: false
+# #   retryInterval: 1m30s
+# #   path: ./examples/crossplane-planets
+# #   prune: true
+# #   wait: true
+# #   dependsOn:
+# #     - name: crossplane-planets-config
+# #   sourceRef:
+# #     kind: GitRepository
+# #     name: cozy-fluxcd
+# #     namespace: cozy-fluxcd
