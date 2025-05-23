@@ -36,10 +36,10 @@ spec:
             - --kube-apiserver-arg=oidc-groups-claim=groups
             - --disable=runtimes
             - --disable-helm-controller
-# - --disable=rolebindings,runtimes
             image:
               tag: v1.32.4-k3s1
         proxy:
           extraSANs:
           - mop-cluster.turkey.local
           - mop.vcluster-mop-cluster.svc
+# - --disable=rolebindings,runtimes
