@@ -13,7 +13,7 @@ spec:
     chart:
       name: vcluster
       repo: https://charts.loft.sh
-      version: 0.22.4
+      version: 0.25.0
     values: |
       controlPlane:
         ingress:
@@ -37,7 +37,7 @@ spec:
             - --disable=rolebindings,runtimes
             - --disable-helm-controller
             image:
-              tag: v1.30.8-k3s1
+              tag: v1.32.4-k3s1
         proxy:
           extraSANs:
           - vcluster-cluster.turkey.local
