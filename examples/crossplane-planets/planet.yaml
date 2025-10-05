@@ -6,4 +6,4 @@ metadata:
 spec:
   vClusterName: moo
   planetName: socryx-topled
-  externalIP: 10.17.12.102
+  externalIP: 10.17.12.138
